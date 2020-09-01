@@ -2,9 +2,20 @@ from bs4 import BeautifulSoup
 import requests
 
 
-search = input("Enter search term:")
+search = input("Search for")
 params = {"q": search}
-r = requests.get("https://www.bing.com/search?q=pizza", params=params)
+r = requests.get("http://www.bing.com/search", params=params)
 
 soup = BeautifulSoup(r.text, features="html.parser")
-print(soup.prettify())
+results = soup.find("ol", attrs={"id": "b_results"})
+links = results.findAll("li", attrs={"class": "b_algo"})
+
+for item in links:
+    item_text = item.find("a").text
+    item_href = item.find("a").attrs["href"]
+
+    if item_text and item_href:
+        print(item_text)
+        print(item_href)
+
+# print(soup.prettify())
