@@ -15,4 +15,4 @@ for item in links:
     print("Getting", item.attrs["href"])
     title = item.attrs["href"].split("/")[-1]
     img = Image.open(BytesIO(img_obj.content))
-    img.save("./scraped_images" + title, img.format)
+    img.save("./scraped_images/" + title, img.format)
